@@ -55,8 +55,6 @@ class _SettingsScreen extends State<SettingsScreen> {
   _SettingsScreen(this.selectedValueGroup, this.selectedValueCourse);
   @override
   Widget build(BuildContext context) {
-    // String selectedValueGroup = widget.group;
-    // String selectedValueCourse = widget.course;
     return Scaffold(
         body: Center(
             child: Column(
@@ -158,7 +156,7 @@ class _SettingsScreen extends State<SettingsScreen> {
                         border: Border.all(
                           color: Colors.black26,
                         ),
-                        color: Color.fromARGB(255, 252, 252, 252),
+                        color: const Color.fromARGB(255, 252, 252, 252),
                       ),
                       buttonElevation: 2,
                       itemHeight: 40,
@@ -168,7 +166,7 @@ class _SettingsScreen extends State<SettingsScreen> {
                       dropdownPadding: null,
                       dropdownDecoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: const Color.fromARGB(255, 255, 255, 255),
                       ),
                       dropdownElevation: 8,
                       scrollbarRadius: const Radius.circular(40),
@@ -259,7 +257,7 @@ class _SettingsScreen extends State<SettingsScreen> {
                         border: Border.all(
                           color: Colors.black26,
                         ),
-                        color: Color.fromARGB(255, 252, 252, 252),
+                        color: const Color.fromARGB(255, 252, 252, 252),
                       ),
                       buttonElevation: 2,
                       itemHeight: 40,
@@ -269,7 +267,7 @@ class _SettingsScreen extends State<SettingsScreen> {
                       dropdownPadding: null,
                       dropdownDecoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: const Color.fromARGB(255, 255, 255, 255),
                       ),
                       dropdownElevation: 8,
                       scrollbarRadius: const Radius.circular(40),
@@ -292,7 +290,7 @@ class _SettingsScreen extends State<SettingsScreen> {
                       shape: RoundedRectangleBorder(
                           //to set border radius to button
                           borderRadius: BorderRadius.circular(20)),
-                      padding: EdgeInsets.all(20)),
+                      padding: const EdgeInsets.all(20)),
                   child: const Text('Принять'),
                   onPressed: () {
                     Navigator.pop(context);
@@ -306,11 +304,6 @@ class _SettingsScreen extends State<SettingsScreen> {
                             course: courseToSend,
                           ),
                         ));
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const MainScreen()),
-                    // );
                   },
                 ),
               ),

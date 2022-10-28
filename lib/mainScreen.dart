@@ -44,7 +44,7 @@ class MainScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           //to set border radius to button
                           borderRadius: BorderRadius.circular(30)),
-                      padding: EdgeInsets.all(20)),
+                      padding: const EdgeInsets.all(20)),
                   child: const Text('Первая неделя'),
                   onPressed: () {
                     Navigator.push(
@@ -68,7 +68,7 @@ class MainScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           //to set border radius to button
                           borderRadius: BorderRadius.circular(30)),
-                      padding: EdgeInsets.all(20)),
+                      padding: const EdgeInsets.all(20)),
                   child: const Text('Вторая неделя'),
                   onPressed: () {
                     Navigator.push(
@@ -92,7 +92,7 @@ class MainScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           //to set border radius to button
                           borderRadius: BorderRadius.circular(30)),
-                      padding: EdgeInsets.all(20)),
+                      padding: const EdgeInsets.all(20)),
                   child: const Text('Настройки'),
                   onPressed: () {
                     Navigator.pop(context);

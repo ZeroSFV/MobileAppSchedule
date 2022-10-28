@@ -152,7 +152,7 @@ class _BeginningScreen extends State<BeginningScreen> {
                         border: Border.all(
                           color: Colors.black26,
                         ),
-                        color: Color.fromARGB(255, 252, 252, 252),
+                        color: const Color.fromARGB(255, 252, 252, 252),
                       ),
                       buttonElevation: 2,
                       itemHeight: 40,
@@ -162,7 +162,7 @@ class _BeginningScreen extends State<BeginningScreen> {
                       dropdownPadding: null,
                       dropdownDecoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: const Color.fromARGB(255, 255, 255, 255),
                       ),
                       dropdownElevation: 8,
                       scrollbarRadius: const Radius.circular(40),
@@ -253,7 +253,7 @@ class _BeginningScreen extends State<BeginningScreen> {
                         border: Border.all(
                           color: Colors.black26,
                         ),
-                        color: Color.fromARGB(255, 252, 252, 252),
+                        color: const Color.fromARGB(255, 252, 252, 252),
                       ),
                       buttonElevation: 2,
                       itemHeight: 40,
@@ -263,7 +263,7 @@ class _BeginningScreen extends State<BeginningScreen> {
                       dropdownPadding: null,
                       dropdownDecoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: const Color.fromARGB(255, 255, 255, 255),
                       ),
                       dropdownElevation: 8,
                       scrollbarRadius: const Radius.circular(40),
@@ -286,16 +286,11 @@ class _BeginningScreen extends State<BeginningScreen> {
                       shape: RoundedRectangleBorder(
                           //to set border radius to button
                           borderRadius: BorderRadius.circular(20)),
-                      padding: EdgeInsets.all(20)),
+                      padding: const EdgeInsets.all(20)),
                   child: const Text('Принять'),
                   onPressed: () {
                     Navigator.pop(context);
                     _sendDataToMainScreen(context);
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const MainScreen()),
-                    // );
                   },
                 ),
               ),

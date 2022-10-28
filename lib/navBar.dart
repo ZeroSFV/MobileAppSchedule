@@ -30,17 +30,17 @@ class _NavBar extends State<NavBar> {
     return Container(
       height: 56.0, // in logical pixels
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      decoration: BoxDecoration(color: Color.fromARGB(255, 0, 0, 0)),
+      decoration: const BoxDecoration(color: Color.fromARGB(255, 0, 0, 0)),
       // Row is a horizontal, linear layout.
       child: Row(
         children: [
           Expanded(
               child: IconButton(
-                  icon: Icon(Icons.home),
+                  icon: const Icon(Icons.home),
                   color: (_selectedIndex == 1)
                       ? const Color.fromARGB(255, 0, 0, 255)
-                      : Color.fromARGB(255, 255, 255, 255),
-                  disabledColor: Color.fromARGB(255, 255, 255, 255),
+                      : const Color.fromARGB(255, 255, 255, 255),
+                  disabledColor: const Color.fromARGB(255, 255, 255, 255),
                   tooltip: 'Home page',
                   onPressed: (_selectedIndex == 1)
                       ? () => {
