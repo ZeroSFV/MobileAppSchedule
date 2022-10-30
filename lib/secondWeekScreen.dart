@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'navBar.dart';
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 
 class SecondWeekScreen extends StatefulWidget {
   final String group;
@@ -13,9 +16,51 @@ class SecondWeekScreen extends StatefulWidget {
 
 class _SecondWeekScreen extends State<SecondWeekScreen> {
   int selectedIndex = 0;
+  int xd = 0;
+  String Day = "monday";
   void _onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
+      if (selectedIndex == 0) {
+        Day = "monday";
+        readJson(Day);
+      }
+      if (selectedIndex == 1) {
+        Day = "tuesday";
+        readJson(Day);
+      }
+      if (selectedIndex == 2) {
+        Day = "wednesday";
+        readJson(Day);
+      }
+      if (selectedIndex == 3) {
+        Day = "thursday";
+        readJson(Day);
+      }
+      if (selectedIndex == 4) {
+        Day = "friday";
+        readJson(Day);
+      }
+      if (selectedIndex == 5) {
+        Day = "saturday";
+        readJson(Day);
+      }
+      if (selectedIndex == 6) {
+        Day = "sunday";
+        readJson(Day);
+      }
+    });
+  }
+
+  List _items = [];
+
+  // Fetch content from the json file
+  Future<void> readJson(day) async {
+    final String response =
+        await rootBundle.loadString('assets/secondWeek.json');
+    final data = await json.decode(response);
+    setState(() {
+      _items = data[day];
     });
   }
 
@@ -29,6 +74,7 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
 
   @override
   Widget build(BuildContext context) {
+    readJson(Day);
     TextStyle FirstStyle = getTextStyle(true);
     TextStyle SecondStyle = getTextStyle(false);
     return Scaffold(
@@ -133,7 +179,85 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
                     onTap: () => {_onItemTapped(6)},
                   )
                 ],
-              ))
+              )),
+          Container(
+              // color: Colors.white,
+              height: 380,
+              margin: const EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: Column(children: [
+                Flexible(
+                    child: GridView.count(
+                        padding: EdgeInsets.only(top: 15.0),
+                        primary: false,
+                        // physics: NeverScrollableScrollPhysics(),
+                        crossAxisCount: 1,
+                        childAspectRatio: 6.80,
+                        // crossAxisSpacing: 8,
+                        // mainAxisSpacing: 1,
+                        //mainAxisSpacing: 10,
+                        children: _items
+                            .map((item) => Wrap(children: [
+                                  Container(
+                                      height: 50,
+                                      width: 97,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        border: Border.all(
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                        ),
+                                      ),
+                                      child: Center(child: Text(item['time']))),
+                                  Container(
+                                      height: 50,
+                                      width: 241,
+                                      decoration: BoxDecoration(
+                                        color: (item['pair']
+                                                    .toString()
+                                                    .contains("лек.") ==
+                                                true)
+                                            ? Color.fromARGB(255, 255, 246, 198)
+                                            : (item['pair']
+                                                        .toString()
+                                                        .contains("лаб.") ==
+                                                    true)
+                                                ? Color.fromARGB(
+                                                    255, 255, 170, 251)
+                                                : ((item['pair']
+                                                                .toString()
+                                                                .contains(
+                                                                    "к.раб.") ==
+                                                            true) ||
+                                                        (item['pair']
+                                                                .toString()
+                                                                .contains(
+                                                                    "сем.") ==
+                                                            true) ||
+                                                        (item['pair']
+                                                                .toString()
+                                                                .contains(
+                                                                    "к.пр.") ==
+                                                            true))
+                                                    ? Color.fromARGB(
+                                                        255, 175, 255, 183)
+                                                    : Colors.white,
+                                        border: Border.all(
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                        ),
+                                      ),
+                                      child: Center(
+                                          child: Text(
+                                        item['pair'],
+                                        textAlign: TextAlign.center,
+                                      )))
+                                ]))
+                            .toList()))
+              ]))
         ]),
         backgroundColor: Colors.blue,
         bottomNavigationBar: NavBar(
@@ -142,3 +266,15 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
             courseNav: widget.course));
   }
 }
+
+
+
+
+//  Center(
+//           child: ElevatedButton(
+//             onPressed: () {
+//               Navigator.pop(context);
+//             },
+//             child: const Text('Go back!'),
+//           ),
+//         ),
