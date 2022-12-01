@@ -36,6 +36,7 @@ final List<String> itemsCourse = [
   'Второй курс',
   'Третий курс',
   'Четвертый курс',
+  'Пятый курс',
 ];
 String? selectedValueCouse;
 
@@ -65,7 +66,8 @@ class _BeginningScreen extends State<BeginningScreen> {
                     child: Text(
                       "Мое расписание занятий",
                       style: TextStyle(
-                        fontSize: 24.0, // text size
+                        fontSize: 24.0,
+                        fontStyle: FontStyle.italic, // text size
                         color: Colors.white, // text color
                       ),
                     ),
@@ -304,10 +306,7 @@ class _BeginningScreen extends State<BeginningScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => MainScreen(
-            group: groupToSend,
-            course: courseToSend,
-          ),
+          builder: (context) => MainScreen(),
         ));
   }
 }

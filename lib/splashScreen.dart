@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'beginningScreen.dart';
+import 'package:flutter_mobile_schedule/settings/beginningScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -33,7 +33,8 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Text(
                 "Мое расписание занятий",
                 style: TextStyle(
-                  fontSize: 24.0, // text size
+                  fontSize: 24.0,
+                  fontStyle: FontStyle.italic, // text size
                   color: Colors.white, // text color
                 ),
               ),

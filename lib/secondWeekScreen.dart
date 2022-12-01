@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'navBar.dart';
 import 'dart:convert';
-
+import 'notes/notesPage.dart';
 import 'package:flutter/services.dart';
 
+import 'package:flutter_mobile_schedule/settings/settingsJson.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+
 class SecondWeekScreen extends StatefulWidget {
-  final String group;
-  final String course;
-  const SecondWeekScreen(
-      {super.key, required this.group, required this.course});
+  const SecondWeekScreen({super.key});
 
   @override
   State<SecondWeekScreen> createState() => _SecondWeekScreen();
@@ -18,6 +19,34 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
   int selectedIndex = 0;
   int xd = 0;
   String Day = "monday";
+  SettingsJson _settingsJson = SettingsJson("Первый курс", "41", "x");
+
+  Future<void> readAssetJson() async {
+    final String response = await rootBundle.loadString('assets/settings.json');
+    final data = await json.decode(response);
+    setState(() {
+      _settingsJson.course = data["course"];
+      _settingsJson.group = data["group"];
+      _settingsJson.subgroup = data["subgroup"];
+    });
+    _settingsJson.writeJson();
+  }
+
+  Future<void> readFileSystemJson() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final path = directory.path;
+    final file = File('$path/settings.json');
+    if (await file.exists()) {
+      final content = await file.readAsString();
+      setState(() {
+        _settingsJson = SettingsJson.fromJson(jsonDecode(content));
+      });
+      return;
+    }
+    readAssetJson();
+    return;
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
@@ -64,6 +93,19 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
     });
   }
 
+  void _onNotesTapped(BuildContext context, String _Day) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NotesPage(
+              course: _settingsJson.course,
+              group: _settingsJson.group,
+              subgroup: _settingsJson.subgroup,
+              day: _Day,
+              week: 2),
+        ));
+  }
+
   TextStyle getTextStyle(bool Selected) {
     if (Selected == true)
       return const TextStyle(fontSize: 20, color: Color.fromARGB(255, 0, 0, 0));
@@ -72,16 +114,24 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
           fontSize: 20, color: const Color.fromARGB(255, 163, 163, 163));
   }
 
+  void initState() {
+    Future.delayed(Duration.zero, () async {
+      readJson(Day);
+      readFileSystemJson();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    readJson(Day);
+    // readJson(Day);
     TextStyle FirstStyle = getTextStyle(true);
     TextStyle SecondStyle = getTextStyle(false);
     return Scaffold(
         body: Column(mainAxisSize: MainAxisSize.max, children: [
           Container(
               height: 47,
-              color: Color.fromARGB(255, 213, 213, 213),
+              color: const Color.fromARGB(255, 213, 213, 213),
               child: const Center(
                   child: Text("Вторая неделя",
                       style: TextStyle(
@@ -97,7 +147,7 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
                   GestureDetector(
                     child: Container(
                         width: 158,
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: const Color.fromARGB(255, 255, 255, 255),
                         child: Center(
                             child: Text(
                           'Понедельник',
@@ -109,7 +159,7 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
                   GestureDetector(
                     child: Container(
                       width: 158,
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       child: Center(
                           child: Text(
                         'Вторник',
@@ -121,7 +171,7 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
                   GestureDetector(
                     child: Container(
                       width: 158,
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       child: Center(
                           child: Text(
                         'Среда',
@@ -133,7 +183,7 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
                   GestureDetector(
                     child: Container(
                       width: 158,
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       child: Center(
                           child: Text(
                         'Четверг',
@@ -145,7 +195,7 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
                   GestureDetector(
                     child: Container(
                       width: 158,
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       child: Center(
                           child: Text(
                         'Пятница',
@@ -157,7 +207,7 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
                   GestureDetector(
                     child: Container(
                       width: 158,
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       child: Center(
                           child: Text(
                         'Суббота',
@@ -187,20 +237,16 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
               decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: const Color.fromARGB(255, 255, 255, 255),
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
+                  borderRadius: const BorderRadius.all(Radius.circular(20))),
               child: Column(children: [
                 Flexible(
                     child: GridView.count(
-                        padding: EdgeInsets.only(top: 15.0),
+                        padding: const EdgeInsets.only(top: 15.0),
                         primary: false,
-                        // physics: NeverScrollableScrollPhysics(),
                         crossAxisCount: 1,
                         childAspectRatio: 6.80,
-                        // crossAxisSpacing: 8,
-                        // mainAxisSpacing: 1,
-                        //mainAxisSpacing: 10,
                         children: _items
                             .map((item) => Wrap(children: [
                                   Container(
@@ -226,7 +272,7 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
                                                         .toString()
                                                         .contains("лаб.") ==
                                                     true)
-                                                ? Color.fromARGB(
+                                                ? const Color.fromARGB(
                                                     255, 255, 170, 251)
                                                 : ((item['pair']
                                                                 .toString()
@@ -243,11 +289,12 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
                                                                 .contains(
                                                                     "к.пр.") ==
                                                             true))
-                                                    ? Color.fromARGB(
+                                                    ? const Color.fromARGB(
                                                         255, 175, 255, 183)
                                                     : Colors.white,
                                         border: Border.all(
-                                          color: Color.fromARGB(255, 0, 0, 0),
+                                          color: const Color.fromARGB(
+                                              255, 0, 0, 0),
                                         ),
                                       ),
                                       child: Center(
@@ -257,24 +304,22 @@ class _SecondWeekScreen extends State<SecondWeekScreen> {
                                       )))
                                 ]))
                             .toList()))
-              ]))
+              ])),
+          Align(
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                child: Container(
+                  height: 45,
+                  width: 50,
+                  margin: const EdgeInsets.only(right: 20.0),
+                  decoration: const BoxDecoration(
+                      color: Colors.white, shape: BoxShape.circle),
+                  child: const Expanded(child: Icon(Icons.create)),
+                ),
+                onTap: () => {_onNotesTapped(context, Day)},
+              ))
         ]),
         backgroundColor: Colors.blue,
-        bottomNavigationBar: NavBar(
-            selectedIndex: 0,
-            groupNav: widget.group,
-            courseNav: widget.course));
+        bottomNavigationBar: const NavBar(selectedIndex: 0));
   }
 }
-
-
-
-
-//  Center(
-//           child: ElevatedButton(
-//             onPressed: () {
-//               Navigator.pop(context);
-//             },
-//             child: const Text('Go back!'),
-//           ),
-//         ),

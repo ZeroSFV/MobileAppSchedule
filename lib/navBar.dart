@@ -3,13 +3,7 @@ import 'mainScreen.dart';
 
 class NavBar extends StatefulWidget {
   final int selectedIndex;
-  final String groupNav;
-  final String courseNav;
-  const NavBar(
-      {super.key,
-      required this.selectedIndex,
-      required this.groupNav,
-      required this.courseNav});
+  const NavBar({super.key, required this.selectedIndex});
 
   @override
   _NavBar createState() => new _NavBar(selectedIndex);
@@ -46,26 +40,28 @@ class _NavBar extends State<NavBar> {
                       ? () => {
                             _onIconPressed(1),
                           }
-                      : () => {
-                            _onIconPressed(1),
-                            Navigator.pop(context),
-                            _sendDataToMainScreen(context),
-                          }))
+                      : (_selectedIndex == 0)
+                          ? () => {
+                                _onIconPressed(1),
+                                Navigator.pop(context),
+                                _sendDataToMainScreen(context),
+                              }
+                          : () => {
+                                _onIconPressed(1),
+                                Navigator.pop(context),
+                                Navigator.pop(context),
+                                //_sendDataToMainScreen(context),
+                              }))
         ],
       ),
     );
   }
 
   void _sendDataToMainScreen(BuildContext context) {
-    String groupToSend = widget.groupNav;
-    String courseToSend = widget.courseNav;
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => MainScreen(
-            group: groupToSend,
-            course: courseToSend,
-          ),
+          builder: (context) => MainScreen(),
         ));
   }
 }

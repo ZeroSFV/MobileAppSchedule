@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'navBar.dart';
-import 'settingsScreen.dart';
 import 'firstWeekScreen.dart';
 import 'secondWeekScreen.dart';
+import 'package:flutter_mobile_schedule/settings/settingsScreen.dart';
 
 class MainScreen extends StatelessWidget {
-  final String group;
-  final String course;
-  const MainScreen({super.key, required this.group, required this.course});
+  const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,8 @@ class MainScreen extends StatelessWidget {
                     child: Text(
                       "Мое расписание занятий",
                       style: TextStyle(
-                        fontSize: 20.0, // text size
+                        fontSize: 20.0,
+                        fontStyle: FontStyle.italic, // text size
                         color: Colors.white, // text color
                       ),
                     ),
@@ -50,8 +49,7 @@ class MainScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              FirstWeekScreen(group: group, course: course)),
+                          builder: (context) => FirstWeekScreen()),
                     );
                   },
                 ),
@@ -74,8 +72,7 @@ class MainScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              SecondWeekScreen(group: group, course: course)),
+                          builder: (context) => SecondWeekScreen()),
                     );
                   },
                 ),
@@ -104,20 +101,14 @@ class MainScreen extends StatelessWidget {
           ),
         ),
         backgroundColor: Colors.blue,
-        bottomNavigationBar:
-            NavBar(selectedIndex: 1, groupNav: group, courseNav: course));
+        bottomNavigationBar: const NavBar(selectedIndex: 1));
   }
 
   void _sendDataToSettingsScreen(BuildContext context) {
-    String groupToSend = group;
-    String courseToSend = course;
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => SettingsScreen(
-            group: groupToSend,
-            course: courseToSend,
-          ),
+          builder: (context) => const SettingsScreen(),
         ));
   }
 }
